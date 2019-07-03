@@ -33,9 +33,13 @@ We support the following:
 Below we show an example fitting a simple Bayesian linear regression with unknown beta and unknown variance.
 
 ```python
+import numpy as np
+from conjugate_bayes.models import NIGLinearRegression
+
 model = NIGLinearRegression(mu=np.zeros(2), v=100*np.eye(2), a=0.5, b=0.5)
 model.fit(x_tr, y_tr)
 
+# these are scipy distribution objects
 sigma2 = model.get_marginal_sigma2()
 beta = model.get_conditional_beta(sigma2=sigma2.mean())
 ```
