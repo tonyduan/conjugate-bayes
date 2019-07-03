@@ -16,22 +16,33 @@ We support the following:
 
 - Beta-Bernoulli
 - Gamma-Poisson
-- Normal Inverse-Gamma
+- Normal-Inverse-Gamma
 
 #### To fit regression models
 
 - Linear regression with Normal Inverse-Gamma prior
 - Linear regression with Zellner's *g*-prior
 
+#### Future work
+
+- Dirichlet-Multinomial
+- Normal-Inverse-Wishart
+
 #### Usage
 
-Below we show an example fitting a simple Bayesian linear regression with unknown variance.
+Below we show an example fitting a simple Bayesian linear regression with unknown beta and unknown variance.
 
 ```python
-Todo
+model = NIGLinearRegression(mu=np.zeros(2), v=100*np.eye(2), a=0.5, b=0.5)
+model.fit(x_tr, y_tr)
+
+sigma2 = model.get_marginal_sigma2()
+beta = model.get_conditional_beta(sigma2=sigma2.mean())
 ```
 
 The above example results in the following prediction intervals.
+
+![ex_model](examples/ex.png)
 
 For further details the `examples/` folder.
 
